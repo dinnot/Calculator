@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Calculator</title>
+    <link rel="stylesheet" href="style_calculator.css">
+</head>
+<body>
+    <span>
+        <div id = "button-container">
+            <div id = "history"></div>
+            <div id = "display"></div>
+            <div>
+                <button class="button digit" id = "1">1</button>
+                <button class="button digit" id = "2">2</button>
+                <button class="button digit" id = "3">3</button>
+                <button class="button operator" id = "sum">+</button>
+                <button class="button operator" id = "multiplication">x</button>
+                <button class="button backspace" id = "backspace">←</button>
+            </div>
+            <div>
+                <button class="button digit" id = "4">4</button>
+                <button class="button digit" id = "5">5</button>
+                <button class="button digit" id = "6">6</button>
+                <button class="button operator" id = "difference">-</button>
+                <button class="button operator" id = "division">/</button>
+                <button class="button C" id = "C">C</button>
+            </div>
+            <div>
+                <button class="button digit" id = "7">7</button>
+                <button class="button digit" id = "8">8</button>
+                <button class="button digit" id = "9">9</button>
+                <button class="button digit" id = "0">0</button>
+                <button class="button decimal" id = "decimal">.</button>
+                <button class="button equals" id = "equals">=</button>
+            </div>
+            <input type="text" id = "notes"></input>
+        </div>
+    </span>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = "calculator_script.mjs"></script>
+
+</body>
+</html>
