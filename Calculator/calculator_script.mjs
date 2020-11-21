@@ -1,6 +1,7 @@
 const calculator = {
     displayValue: "",
-    result: "",   
+    result: "",
+    operand: "",
     operandInserted: true,
     decimalInserted: false,
     operatorInserted: false,
@@ -8,7 +9,9 @@ const calculator = {
   };
 
   const last2 = calculator.displayValue.charAt(calculator.displayValue.length-2);
-  const last1 = calculator.displayValue.charAt(calculator.displayValue.length-1);
+  var asad = 0;
+  const last1 = calculator.displayValue.charAt(calculator.displayValue.length-asad)
+;
 
 function showCalcDisplay(){
     $("#display").html(calculator.displayValue);
@@ -21,15 +24,23 @@ function showHistory(){
 }
 
 function digitInput(digit){
-    calculator.displayValue +=digit;
-    calculator.operandInserted = true;
-    calculator.operatorInserted = false;
-    calculator.negPosValueHandler = true;
+    if(calculator.operand == "0" ){
+        calculator.operand = digit;
+        calculator.displayValue = calculator.displayValue.slice(0,-1) + digit;
+    }else{
+        calculator.displayValue +=digit;
+        calculator.operand += digit;
+        calculator.operandInserted = true;
+        calculator.operatorInserted = false;
+        calculator.negPosValueHandler = true;
+    }
+  
 }
 
 function decimalInput(dot){
     if(!calculator.decimalInserted&calculator.operandInserted){
         calculator.displayValue += dot;
+        calculator.operand += dot
         calculator.decimalInserted = true;
     }
 }
@@ -37,6 +48,7 @@ function decimalInput(dot){
 function clearInput(){ 
     calculator.displayValue = "";
     calculator.operand = "";
+    calculator.operandInserted = true;
     calculator.result = "";
     calculator.operatorInserted = false;
     calculator.decimalInserted = false;
@@ -55,6 +67,7 @@ function backspaceInput(){
 function operatorInput(operator){
     if(!calculator.operatorInserted){
         calculator.displayValue += operator;
+        calculator.operand = "";
         calculator.operatorInserted = true;
         calculator.decimalInserted = false;
         calculator.operandInserted = false
@@ -82,9 +95,6 @@ function equals(){
         if(calculator.result === undefined){
             calculator.displayValue = "";
         }
-        if(calculator.result > 999999999){
-            calculator.result = `Error! Value to big`
-        }
 }
 
 $(".button").on("click",function(e){
@@ -95,17 +105,7 @@ $(".button").on("click",function(e){
     if(target.hasClass("digit")){
         digitInput(target.html());
         showCalcDisplay();
-        if(last1 == 0){
-            if(target.html() == 0){
-                if(!isNaN(last2)){
-                    if(last2 == "."){
-                        return
-                    }else{
-                        calculator.displayValue = calculator.displayValue.slice(0,-1);
-                    }
-                }
-            }
-        }
+        const last1 = calculator.displayValue.charAt(calculator.displayValue.length-asad)
     } else if(target.hasClass("operator")){
         operatorInput(target.html());
         showCalcDisplay();
@@ -126,59 +126,69 @@ $(".button").on("click",function(e){
     }     
 });
 
-$(document).keypress(function(e) {
-    for(let i = 48; i <= 57; i++){
-        if(e.which == i){
-            digitInput(i-48);
+!$("textarea").focus(function(){
+    $(document).keypress(function(e){
+
+        for(let i = 48; i <= 57; i++){
+            if(e.which == i){
+                digitInput(i-48);
+                showCalcDisplay();
+            }
+        }
+    });
+    
+    $(document).keypress(function(e) {
+        if(e.which == 46) {
+            decimalInput(".");
             showCalcDisplay();
         }
-    }
-});
-
-$(document).keypress(function(e) {
-    if(e.which == 46) {
-        decimalInput(".");
-        showCalcDisplay();
-    }
-});
-
-$(document).keypress(function(e) {
-    if(e.which == 42) {
-        operatorInput("*");
-        showCalcDisplay();
-    }else if(e.which == 43){
-        operatorInput("+");
-        showCalcDisplay();
-    }else if(e.which == 45){
-        operatorInput("-");
-        showCalcDisplay();
-    }else if(e.which == 47){
-        operatorInput("/");
-        showCalcDisplay();
-    }
-});
-
-$(document).keydown(function(e) {
-    if(e.which == 27) {
-        clearInput();
-        showCalcDisplay();
-    }
-});
-
-$(document).keydown(function(e) {
-    if(e.which == 8) {
-        backspaceInput();
-        showCalcDisplay();
-    }
-});
-
-$(document).keyup(function(e) {
-    if(e.which == 13) {
-        equals();
-        showCalcDisplay();
-        showHistory();
-        clearInput();   
-    }
-});
+    });
+    
+    $(document).keypress(function(e) {
+        if(e.which == 42) {
+            operatorInput("*");
+            showCalcDisplay();
+        }else if(e.which == 43){
+            operatorInput("+");
+            showCalcDisplay();
+        }else if(e.which == 45){
+            operatorInput("-");
+            showCalcDisplay();
+        }else if(e.which == 47){
+            operatorInput("/");
+            showCalcDisplay();
+        }
+    });
+    
+    $(document).keydown(function(e) {
+        if(e.which == 27) {
+            clearInput();
+            showCalcDisplay();
+        }
+    });
+    
+    $(document).keydown(function(e) {
+        if(e.which == 8) {
+            backspaceInput();
+            showCalcDisplay();
+        }
+    });
+    
+    $(document).keyup(function(e) {
+        if(e.which == 13) {
+            equals();
+            showCalcDisplay();
+            showHistory();
+            clearInput();   
+        }
+    });
+})
 
 
+
+
+//Clearing History
+
+$("#history").dblclick(function(){
+   $("#history").html(`HISTORY`+`<br>`)
+})
