@@ -15,9 +15,14 @@ body{
     user-select: none;
 }
 
+.button:focus{
+    outline-style: none;
+    background-color: rgb(255, 140, 32);
+    transition-duration: 1s;
+}
+
 #history{
     color: rgb(71, 71, 71);
-    font-style: italic;
     text-overflow: ellipsis;
     word-wrap: break-word;
     padding: 6px;
@@ -32,6 +37,7 @@ body{
     overflow:auto;
     text-align: center;
     user-select: none;
+    line-height: 90%;
 }
 
 .equals{
@@ -48,9 +54,10 @@ body{
 
 #button-container {
     padding: 10px;
-    position: relative;
+    position: absolute;
+    left: 25%;
     background-color: rgba(233, 233, 233, 0.438);
-    width: 45%;
+    width: 640px;
     border-radius: 25px;
     margin: auto;
 }
@@ -59,7 +66,7 @@ body{
     word-wrap: break-word;
     text-align: right;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 150%;
+    font-size: 350%;
     color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 20px;
@@ -67,6 +74,10 @@ body{
     height: 70px;
     background-color:rgba(99, 99, 99, 0.911);
     margin-bottom: 2px;
+}
+
+#notes:focus{
+    outline-style: none;
 }
 
 #notes{
